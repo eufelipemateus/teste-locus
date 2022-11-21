@@ -21,10 +21,10 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
   
 
-    @action(detail=True, renderer_classes=[renderers.CoreJSONRenderer])
+    @action(detail=True, renderer_classes=[renderers.CoreAPIJSONOpenAPIRenderer])
     def highlight(self, request, *args, **kwargs):
         snippet = self.get_object()
         return Response(snippet.highlighted)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save()
