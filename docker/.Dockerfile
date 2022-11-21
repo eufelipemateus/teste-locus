@@ -11,11 +11,9 @@ RUN python -m pip install --upgrade pip
 #RUN soruce ./myvenv/bin/activate
 COPY requirements.txt requirements.txt
 
-
 RUN pip install -r requirements.txt
 
+WORKDIR /app/src
 
-COPY src/ .
 
-
-CMD ["python", "manage.py",  "runserver"]
+CMD ["python", "manage.py",  "runserver", "0.0.0.0:8000"]
