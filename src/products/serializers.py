@@ -1,19 +1,19 @@
 from rest_framework import serializers
 
-from .models import Items
+from .models import Item, Sale
 
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
-
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Items
+        model = Item
         fields = ('id', 'nome','description', 'price')
 
 
 
-
-class SaleSerializer(serializers.HyperlinkedModelSerializer):
-
+class SaleSerializer(serializers.ModelSerializer):
+    items = ProductSerializer(many=True, read_only=True)
+    
     class Meta:
-        model = Items
-        fields = ('id', 'nome','description', 'price')
+        model = Sale
+        fields = ('id', 'items','total')
+        read_only_fields= ['total']

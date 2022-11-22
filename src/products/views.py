@@ -7,24 +7,44 @@ from rest_framework import permissions, renderers, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Items
-from .serializers import ProductSerializer
+from .models import Item, Sale
+from .serializers import ProductSerializer, SaleSerializer
+
 
 
 class ProductViewSet(viewsets.ModelViewSet):
     """
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    Additionally we also provide an extra `highlight` action.
+        CRUD lista de produtos mapeado no banco de dados como item.
     """
-    queryset = Items.objects.all()
+    queryset = Item.objects.all()
     serializer_class = ProductSerializer
-  
 
-    @action(detail=True, renderer_classes=[renderers.CoreAPIJSONOpenAPIRenderer])
-    def highlight(self, request, *args, **kwargs):
+
+class  SaleViewSet(viewsets.ModelViewSet):
+    """
+        CRUD lista de vendas.
+    """
+
+    queryset = Sale.objects.all()
+    serializer_class = SaleSerializer
+
+    @action(detail=True, renderer_classes=[renderers.JSONRenderer])
+    def items(self, request, *args, **kwargs):
         snippet = self.get_object()
-        return Response(snippet.highlighted)
+        return Response(snippet.items)
 
     def perform_create(self, serializer):
-        serializer.save()
+        Total= 0
+
+        ItemsRequest = self.request.data.get("items", None)
+
+        #print(ItemsRequest)
+
+        ItemsID = [n["id"]  for n in ItemsRequest ]
+        for n in ItemsRequest:
+            price =  Item.objects.get(pk=n["id"]).price * n["qtd"]
+            Total = Total + price
+
+        Items = Item.objects.filter(pk__in=ItemsID)
+
+        serializer.save(Items=Items, total=Total)

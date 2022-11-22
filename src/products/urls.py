@@ -6,6 +6,7 @@ from products import views
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
 router.register(r'products', views.ProductViewSet)
+router.register(r'sales', views.SaleViewSet)
 
 # The API URLs are now determined automatically by the router.
 # Additionally, we include the login URLs for the browsable API.

@@ -25,8 +25,8 @@ from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
 
 
-API_TITLE = 'Teste Loucs API'
-API_DESCRIPTION = 'A Web API for creating and viewing highlighted code snippets.'
+API_TITLE = 'Teste Locus API'
+API_DESCRIPTION = 'Esta é uma webapi criada para um processo selitivo na empresa locus.'
 schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
