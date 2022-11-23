@@ -1,1 +1,70 @@
-<p>items works!</p>
+<div class="container">
+
+
+  <div class="row justify-content-center cadastro">
+    <div class="col">
+
+      <div class="card" >
+        <div class="card-header">
+          Cadastrar novo Item
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formItens" #form   (ngSubmit)="Cadastrar()" >
+            <div class="input-group mb-3">
+              <input type="text" formControlName="nome"  class="form-control" placeholder="Nome" aria-label="nome" aria-describedby="name" />
+              <div class="invalid-feedback">
+                Por favor, insira o nome.
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">R$</span>
+              <input currencyMask type="text" formControlName="price" class="form-control number" aria-label="Valor" placeholder="200" />
+              <span class="input-group-text">.00</span>
+              <div class="invalid-feedback">
+                Por favor, insira o preço.
+              </div>
+            </div>
+
+            <div class="input-group">
+              <textarea formControlName="description"   class="form-control" placeholder="Descricao" aria-label="Descricao"></textarea>
+            </div>
+            <div class="text-center buttons">
+              <button type="submit" class="btn btn-primary">Salvar Item</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+
+    <div class="col">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descricao</th>
+            <th scope="col">Preco</th>
+            <th scope="col">Acoes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let item of list | async">
+            <th scope="row">{{ item.id}}</th>
+            <td>{{ item.nome}}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price | currency:'BRL' }}</td>
+            <td class="actions">
+              <button type="button" class="btn btn-warning">Edit</button>
+              <button type="button" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
