@@ -66,7 +66,7 @@ export class ItemsComponent implements OnInit {
   }
 
   private loadList(){
-    this.list = this.api.getList()
+    this.list = this.api.getItemList()
   }
 
   private reload(){

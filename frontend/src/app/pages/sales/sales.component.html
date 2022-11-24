@@ -1,0 +1,65 @@
+<div class="container">
+
+
+  <div class="row justify-content-center cadastro">
+    <div class="col">
+
+      <div class="card" >
+        <div class="card-header">
+          Cadastrar\Editar Vendas
+        </div>
+        <div class="card-body">
+          <form #form="ngForm"  (ngSubmit)="Cadastrar(form)" >
+
+            <div *ngFor="let item of items; index as i"  class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">{{i+1}}</span>
+              <select class="form-select" name="id"  name="item-{{i}}"    [(ngModel)]="items[i]['id']"  aria-label="Default select example">
+                <option  *ngFor="let item of selectItens | async" [value]="item.id" >{{item.nome}}</option>
+              </select>
+              <input type="number" name="qtd-{{i}}" [(ngModel)]="items[i]['qtd']" min="0" class="form-control" placeholder="Quantidade" aria-label="quantidade" aria-describedby="qtd-addon1">
+              <button type="button" class="btn btn-danger" (click)="DeleteItemList(item)" role="button">Delete</button>
+            </div>
+
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary" (click)="Adicionar()" type="button">Adicionar</button>
+            </div>
+            <div class="text-center buttons">
+              <button type="submit" class="btn btn-primary">Salvar Venda</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+
+    <div class="col">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descricao</th>
+            <th scope="col">Preco</th>
+            <th scope="col">Acoes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr  *ngFor="let item of list | async">
+            <th scope="row">{{ item.id}}</th>
+            <td>{{ item.nome}}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price | currency:'BRL' }}</td>
+            <td class="actions">
+              <button type="button" (click)="Editar(item)" class="btn btn-warning">Edit</button>
+              <app-modal-delete [id]="item.id || ''" (deleted)="Delete($event)"  ></app-modal-delete>
+            </td>
+          </tr>-->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Item } from '../interfaces/item'
+import { Sale } from '../interfaces/sale'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
    * Retornar Lista d eprodutos
    * @returns retornar lista de produtos
    */
-  getList () {
+  getItemList () {
     return this.http.get<Item[]  >('items/')
   }
 
@@ -41,5 +42,11 @@ export class ApiService {
 
   deleteItem(id: string | null){
     return this.http.delete(`items/${id}/`)
+  }
+
+
+
+  createSale(data: Sale){
+    return this.http.post('sales/', data)
   }
 }
