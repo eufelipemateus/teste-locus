@@ -6,7 +6,7 @@
 
       <div class="card" >
         <div class="card-header">
-          Cadastrar novo Item
+          Cadastrar\Editar Itens
         </div>
         <div class="card-body">
           <form [formGroup]="formItens" #form   (ngSubmit)="Cadastrar()" >
@@ -19,7 +19,8 @@
 
             <div class="input-group mb-3">
               <span class="input-group-text">R$</span>
-              <input currencyMask type="text" formControlName="price" class="form-control number" aria-label="Valor" placeholder="200" />
+              <!--<input currencyMask type="text" formControlName="price" class="form-control number" aria-label="Valor" placeholder="200" />-->
+              <input type="text" formControlName="price" class="form-control number" aria-label="Valor" placeholder="200" />
               <span class="input-group-text">.00</span>
               <div class="invalid-feedback">
                 Por favor, insira o preço.
@@ -59,8 +60,8 @@
             <td>{{ item.description }}</td>
             <td>{{ item.price | currency:'BRL' }}</td>
             <td class="actions">
-              <button type="button" class="btn btn-warning">Edit</button>
-              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="button" (click)="Editar(item)" class="btn btn-warning">Edit</button>
+              <app-modal-delete [id]="item.id || ''" (deleted)="Delete($event)"  ></app-modal-delete>
             </td>
           </tr>
         </tbody>

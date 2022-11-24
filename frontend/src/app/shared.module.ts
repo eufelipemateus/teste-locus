@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http'
 import { InterceptorsModule } from './Interceptors'
 import { CurrencyMaskModule } from 'ng2-currency-mask'
-
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask'
     HttpClientModule,
     HttpClientJsonpModule,
     InterceptorsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    ComponentsModule
   ],
   exports: [
     MaterialModule,
@@ -25,7 +26,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask'
     HttpClientModule,
     HttpClientJsonpModule,
     InterceptorsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    ComponentsModule
   ]
 })
 export class SharedModule { }

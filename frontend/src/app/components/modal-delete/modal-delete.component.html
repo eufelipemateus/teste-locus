@@ -1,0 +1,20 @@
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" href="#ModalDelete" role="button">Delete</button>
+
+
+<div class="modal fade" id="ModalDelete" aria-hidden="true" aria-labelledby="ModalDeleteLabel" tabindex="10000">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Deletar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Tem Certeza que seja remover?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="Delete()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

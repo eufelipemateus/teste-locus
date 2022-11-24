@@ -12,6 +12,8 @@ import { Item } from 'src/app/interfaces/item';
 export class ItemsComponent implements OnInit {
 
   list:Observable<Item[]> | undefined
+  edit=false;
+
 
   constructor( private api: ApiService){}
 
@@ -20,6 +22,7 @@ export class ItemsComponent implements OnInit {
   }
 
   public formItens = new FormGroup({
+    id:  new FormControl('', []),
     nome: new FormControl('', [
       Validators.required,
     ]),
@@ -28,6 +31,7 @@ export class ItemsComponent implements OnInit {
       Validators.min(0)
     ]),
     description: new FormControl('', [
+      Validators.required,
       Validators.maxLength(150),
     ]),
   })
@@ -38,15 +42,36 @@ export class ItemsComponent implements OnInit {
 
     const item =  this.formItens.value as Item
 
-    this.api.postCreateIteam( item).subscribe(() =>{
-      this.formItens.reset()
-      this.loadList()
-    })
+    if(this.edit){
+      this.api.updateItem(item.id, item).subscribe(()=>{
+        this.reload()
 
+      })
+
+    }else {
+      this.api.postItem( item).subscribe(() =>{
+        this.reload()
+      })
+    }
     return ;
   }
 
+  Editar(item: Item){
+    this.edit = true
+    this.formItens.setValue(item)
+  }
+
+  Delete(event: unknown){
+    this.reload()
+  }
+
   private loadList(){
-    this.list = this.api.getItensList()
+    this.list = this.api.getList()
+  }
+
+  private reload(){
+    this.formItens.reset()
+    this.loadList()
+    this.edit = false
   }
 }
