@@ -10,6 +10,7 @@ services:
             API_HOST: '${API_HOST}'
             FRONT_HOST: '${FRONT_HOST}'
         volumes:
+            - 'frontend-node-modules:/app/node_modules'
             - './frontend:/app'
         networks:
             - locus
@@ -63,4 +64,7 @@ networks:
         driver: bridge
 volumes:
     locus-mariadb:
+        driver: local
+
+    frontend-node-modules:
         driver: local

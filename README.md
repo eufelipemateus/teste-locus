@@ -12,6 +12,7 @@ Este  projeto foi construido com  docker-composer para executar basta subir a ap
 git clone  https://github.com/eufelipemateus/teste-locus.git
 cd teste-locus
 cp .env.example .env
+docker-compose build --no-cache
 docker-compose up
 ```
 
