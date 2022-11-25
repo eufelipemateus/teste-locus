@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Item } from '../interfaces/item'
 import { Sale } from '../interfaces/sale'
+// import { Result } from '../interfaces/result'
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ApiService {
    * @returns retornar lista de produtos
    */
   getItemList () {
-    return this.http.get<Item[]  >('items/')
+    return this.http.get<Item[]>('items/')
   }
 
   /**

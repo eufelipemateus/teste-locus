@@ -26,11 +26,13 @@ export class SalesComponent implements OnInit  {
   }
 
   Cadastrar(form: NgForm){
+
     if(this.edit){
       this.api.updateSale(this.edit_id, {Items: this.items}).subscribe(()=>{
         form.reset()
         this.loadList()
       })
+
     }else {
       this.api.createSale({Items: this.items}).subscribe(()=>{
         form.reset()
