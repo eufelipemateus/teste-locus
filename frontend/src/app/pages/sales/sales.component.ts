@@ -1,10 +1,9 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 import { ApiService } from '@services/api';
 import { Observable } from 'rxjs';
 import { Item } from 'src/app/interfaces/item';
-import { SalesItem } from 'src/app/interfaces/sale';
+import { Sale, SalesItem } from 'src/app/interfaces/sale';
 
 @Component({
   selector: 'app-sales',
@@ -12,8 +11,9 @@ import { SalesItem } from 'src/app/interfaces/sale';
   styleUrls: ['./sales.component.scss']
 })
 export class SalesComponent implements OnInit  {
-  list:Observable<Item[]> | undefined
-  edit=false;
+  list:Observable<Sale[]> | undefined
+  private edit=false;
+  private edit_id = '';
   selectItens:Observable<Item[]> | undefined
   items:SalesItem[] = []
 
@@ -22,13 +22,21 @@ export class SalesComponent implements OnInit  {
   ngOnInit(){
     this.selectItens = this.api.getItemList()
     this.Adicionar()
+    this.loadList()
   }
 
   Cadastrar(form: NgForm){
-    this.api.createSale({items: this.items}).subscribe(()=>{
-      form.reset()
-
-    })
+    if(this.edit){
+      this.api.updateSale(this.edit_id, {Items: this.items}).subscribe(()=>{
+        form.reset()
+        this.loadList()
+      })
+    }else {
+      this.api.createSale({Items: this.items}).subscribe(()=>{
+        form.reset()
+        this.loadList()
+      })
+    }
   }
 
   Adicionar(){
@@ -40,5 +48,30 @@ export class SalesComponent implements OnInit  {
 
   DeleteItemList(item: SalesItem){
     this.items.splice(this.items.indexOf(item), 1  )
+  }
+
+  Editar(item: Sale){
+    this.edit = true
+    this.edit_id = item.id || ''
+    this.items =(item.Items?.map((val)=>{
+      return {
+        id: val.id,
+        qtd:0
+      }
+    }) || [])
+  }
+
+  Delete(item: Sale){
+    this.api.deleteSales(item.id || null).subscribe(()=>{
+      this.loadList()
+    })
+  }
+
+  private loadList(){
+    this.list = this.api.getSalesList();
+    this.edit = false
+    this.edit_id = ''
+    this.items = [];
+    this.Adicionar();
   }
 }

@@ -41,23 +41,24 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Descricao</th>
-            <th scope="col">Preco</th>
+            <th scope="col">Total</th>
+            <th scope="col">Qtd Itens</th>
+            <!--<th scope="col">Preco</th> -->
             <th scope="col">Acoes</th>
           </tr>
         </thead>
         <tbody>
-          <!-- <tr  *ngFor="let item of list | async">
+          <tr  *ngFor="let item of list | async">
             <th scope="row">{{ item.id}}</th>
-            <td>{{ item.nome}}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.price | currency:'BRL' }}</td>
+            <td>{{ item.total}}</td>
+            <td>{{ item.Items?.length }}</td>
+            <!--
+            <td>{{ item.price | currency:'BRL' }}</td> -->
             <td class="actions">
-              <button type="button" (click)="Editar(item)" class="btn btn-warning">Edit</button>
-              <app-modal-delete [id]="item.id || ''" (deleted)="Delete($event)"  ></app-modal-delete>
+              <button type="button" (click)="Editar(item)" class="btn btn-warning" role="button">Edit</button>
+              <button type="button" class="btn btn-danger" (click)="Delete(item)" role="button">Delete</button>
             </td>
-          </tr>-->
+          </tr>
         </tbody>
       </table>
     </div>

@@ -1,6 +1,6 @@
 export interface Sale {
-  id?: number;
-  items?: SalesItem[];
+  id?: string;
+  Items?: SalesItem[];
   total?: number
 }
 

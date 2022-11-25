@@ -9,6 +9,7 @@ from rest_framework.response import Response
 
 from .models import Item, Sale
 from .serializers import ProductSerializer, SaleSerializer
+from django.core import serializers
 
 
 
@@ -36,9 +37,24 @@ class  SaleViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         Total= 0
 
-        ItemsRequest = self.request.data.get("items", None)
+        ItemsRequest = self.request.data.get("Items", None)
 
         #print(ItemsRequest)
+
+        ItemsID = [n["id"]  for n in ItemsRequest ]
+        for n in ItemsRequest:
+            price =  Item.objects.get(pk=n["id"]).price * n["qtd"]
+            Total = Total + price
+
+        Items = Item.objects.filter(pk__in=ItemsID)
+
+        serializer.save(Items=Items, total=Total)
+
+
+    def perform_update(self, serializer):
+        Total= 0
+
+        ItemsRequest = self.request.data.get("Items", None)
 
         ItemsID = [n["id"]  for n in ItemsRequest ]
         for n in ItemsRequest:

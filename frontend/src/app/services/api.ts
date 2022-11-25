@@ -44,9 +44,19 @@ export class ApiService {
     return this.http.delete(`items/${id}/`)
   }
 
-
-
   createSale(data: Sale){
     return this.http.post('sales/', data)
+  }
+
+  getSalesList () {
+    return this.http.get<Sale[]  >('sales/')
+  }
+
+  updateSale(id: string | null, data: Sale){
+    return this.http.put(`sales/${id}/`, data)
+  }
+
+  deleteSales(id: string | null){
+    return this.http.delete(`sales/${id}/`)
   }
 }

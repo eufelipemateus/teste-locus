@@ -9,11 +9,9 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ('id', 'nome','description', 'price')
 
 
-
 class SaleSerializer(serializers.ModelSerializer):
-    items = ProductSerializer(many=True, read_only=True)
-    
+    Items = ProductSerializer(many=True, read_only=True)
     class Meta:
         model = Sale
-        fields = ('id', 'items','total')
-        read_only_fields= ['total']
+        fields = ('id', 'Items','total')
+        read_only_fields= ['total', 'Items']
